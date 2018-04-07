@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">InventoryApp</string>
+    <string name="name_header">Name</string>
+    <string name="current_header">Amnt</string>
+    <string name="requested_header">Req Amnt</string>
+    <string name="priority">Priority</string>
+    <string name="units">Units</string>
+    <string-array name="priority_array">
+        <item>N/A</item>
+        <item>Low</item>
+        <item>Med</item>
+        <item>High</item>
+    </string-array>
+</resources>
