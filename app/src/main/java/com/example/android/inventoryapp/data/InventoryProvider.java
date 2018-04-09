@@ -168,31 +168,67 @@ public class InventoryProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
 
         //declare return variable for number of rows deleted
-        int mNumberDeleted;
+        int numberDeleted;
 
         switch (match) {
             case INVENTORY_WITH_ID:
-            //get row id from Uri
-            //1 is section to direct right of table name in path
-            String id = uri.getPathSegments().get(1);
+                //get row id from Uri
+                //1 is section to direct right of table name in path
+                String id = uri.getPathSegments().get(1);
 
-            String mSelection = "_id=?";
-            String[] mSelectionArgs = new String[]{id};
+                selection = "_id=?";
 
-            break;
+                selectionArgs = new String[]{id};
+
+                //method to delete entry, result is an integer
+                numberDeleted = db.delete(TABLE_NAME, selection, selectionArgs);
+
+                break;
 
             //default exception
             default:
                 throw new UnsupportedOperationException("Unknown uri " + uri);
         }
+            //If a task was deleted, notify resolver
+            if(numberDeleted !=0){
+                getContext().getContentResolver().notifyChange(uri, null);
+            }
+            return numberDeleted;
+
+
+
+        }
 
 
 
 
-    }
+
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+        //Keep track of if an update occurs
+        int numberUpdated;
+
+        //get match integer code
+        int match = sUriMatcher.match(uri);
+
+        switch (match) {
+            case INVENTORY_WITH_ID:
+                //update a single task by getting the id
+                String id = uri.getPathSegments().get(1);
+                //using selections
+                numberUpdated = mInventoryHelper.getWritableDatabase().update(TABLE_NAME, contentValues, "_id=?", new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        if (numberUpdated != 0) {
+            //set notifications if a task was updated
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        // return number of tasks updated
+        return numberUpdated;
     }
 }
