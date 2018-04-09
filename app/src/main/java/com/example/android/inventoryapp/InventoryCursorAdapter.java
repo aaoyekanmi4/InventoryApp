@@ -98,14 +98,14 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
         TextView amntEntryView;
         TextView unitEntryView;
         TextView reqAmntEntryView;
-        Spinner priorityEntryView;
+        TextView priorityEntryView;
         public EntryViewholder(View itemView) {
             super(itemView);
             nameEntryView = (TextView) itemView.findViewById(R.id.name);
             amntEntryView = (TextView) itemView.findViewById(R.id.amnt);
             unitEntryView = (TextView) itemView.findViewById(R.id.units);
             reqAmntEntryView = (TextView) itemView.findViewById(R.id.requested);
-            priorityEntryView = (Spinner) itemView.findViewById(R.id.priority);
+            priorityEntryView = (TextView) itemView.findViewById(R.id.priority);
 
         }
     }
