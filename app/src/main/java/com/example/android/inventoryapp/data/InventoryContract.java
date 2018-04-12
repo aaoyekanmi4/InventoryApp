@@ -9,11 +9,11 @@ import android.provider.BaseColumns;
 
 public class InventoryContract {
     //Defining constants to build Uri
-    public static final String AUTHORITY = "com.example.android.InventoryApp";
+    public static final String AUTHORITY = "com.example.android.inventoryapp";
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
-    public static final String PATH_INVENTORY = "/inventory";
+    public static final String PATH_INVENTORY = "inventory";
 
     public static final class InventoryEntry implements BaseColumns {
 

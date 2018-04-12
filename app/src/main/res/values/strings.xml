@@ -5,6 +5,8 @@
     <string name="requested_header">Req Amnt</string>
     <string name="priority">Priority</string>
     <string name="units">Units</string>
+    <string name="add_item">Add Item</string>
+    <string name="fake_data">Add fake data</string>
     <string-array name="priority_array">
         <item>N/A</item>
         <item>Low</item>

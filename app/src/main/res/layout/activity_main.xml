@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/name_header"
                 android:paddingRight="30dp"
-                android:paddingLeft="30dp"/>
+                android:paddingLeft="15dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/priority"
+                android:paddingRight="15dp"
                />
         </LinearLayout>
     <android.support.v7.widget.RecyclerView

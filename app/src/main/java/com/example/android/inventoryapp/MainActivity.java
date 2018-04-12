@@ -1,5 +1,7 @@
 package com.example.android.inventoryapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -9,8 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
-import com.example.android.inventoryapp.data.InventoryContract;
+import static com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 
 public class MainActivity extends AppCompatActivity implements
@@ -30,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         // Set the RecyclerView to its corresponding view
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -60,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+
+
 
         // re-queries for all tasks
         getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
@@ -101,11 +110,11 @@ public class MainActivity extends AppCompatActivity implements
                 // [Hint] use a try/catch block to catch any errors in loading data
 
                 try {
-                    return getContentResolver().query(InventoryContract.InventoryEntry.CONTENT_URI,
+                    return getContentResolver().query(InventoryEntry.CONTENT_URI,
                             null,
                             null,
                             null,
-                            InventoryContract.InventoryEntry.COLUMN_NAME);
+                            InventoryEntry.COLUMN_NAME);
 
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to asynchronously load data.");
@@ -148,6 +157,36 @@ public class MainActivity extends AppCompatActivity implements
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
     }
+
+    //Create overflow menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    //Handle click events for each item in menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.add_item:
+                //navigate to add item page
+                Context context = MainActivity.this;
+                Class destinationActivity = AddItemActivity.class;
+                Intent intent = new Intent(context, destinationActivity);
+                startActivity(intent);
+                return true;
+
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
 }
 

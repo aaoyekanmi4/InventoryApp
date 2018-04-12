@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.android.inventoryapp.data.InventoryContract;
@@ -62,6 +61,9 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
         holder.itemView.setTag(id);
         holder.nameEntryView.setText(name);
         holder.amntEntryView.setText(amount);
+        holder.unitEntryView.setText(unit);
+        holder.reqAmntEntryView.setText(requested);
+        holder.priorityEntryView.setText(priority);
     }
 
     @Override

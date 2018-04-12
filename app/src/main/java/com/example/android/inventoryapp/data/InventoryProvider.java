@@ -3,7 +3,6 @@ package com.example.android.inventoryapp.data;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -53,8 +52,7 @@ public class InventoryProvider extends ContentProvider {
     private InventoryHelper mInventoryHelper;
     @Override
     public boolean onCreate() {
-        Context context = getContext();
-        InventoryHelper mInventoryHelper = new InventoryHelper(context);
+        mInventoryHelper = new InventoryHelper(getContext());
         return true;
     }
 
@@ -137,7 +135,6 @@ public class InventoryProvider extends ContentProvider {
         switch (match) {
             case INVENTORY:
                 // Insert new values into the database
-                // Inserting values into tasks table
                 long id = db.insert(TABLE_NAME, null, contentValues);
                 if ( id > 0 ) {
                     returnUri = ContentUris.withAppendedId(InventoryContract.InventoryEntry.CONTENT_URI, id);

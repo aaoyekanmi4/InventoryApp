@@ -18,7 +18,7 @@ public class InventoryHelper extends SQLiteOpenHelper {
 
     // Constructor
 
-    InventoryHelper(Context context) {
+    public InventoryHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
@@ -32,7 +32,7 @@ public class InventoryHelper extends SQLiteOpenHelper {
                 InventoryEntry.COLUMN_AMNT    + " TEXT NOT NULL, " +
                 InventoryEntry.COLUMN_UNIT    + " TEXT NOT NULL, " +
                 InventoryEntry.COLUMN_REQ + " TEXT NOT NULL, " +
-                InventoryEntry.COLUMN_PRIORITY    + " TEXT NOT NULL, );";
+                InventoryEntry.COLUMN_PRIORITY    + " TEXT NOT NULL);";
 
 
         db.execSQL(CREATE_TABLE);
