@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">InventoryApp</string>
     <string name="name_header">Name</string>
-    <string name="current_header">Amnt</string>
-    <string name="requested_header">Req Amnt</string>
+    <string name="current_header">Current</string>
+    <string name="requested_header">Require</string>
     <string name="priority">Priority</string>
     <string name="units">Units</string>
     <string name="add_item">Add Item</string>
