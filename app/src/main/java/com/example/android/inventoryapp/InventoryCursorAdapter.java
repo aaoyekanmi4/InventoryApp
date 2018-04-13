@@ -20,8 +20,21 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
     private Cursor mCursor;
     private Context mContext;
 
-    public InventoryCursorAdapter(Context mContext) {
+    //Interface to handle clicks on list item
+    public interface ListItemClickListener{
+        //index of item that was clicked
+        void onListItemClick(int id);
+    }
+
+    // member variable in GreenAdapter class to store the ListItemClickListener
+    final private ListItemClickListener mOnClickListener;
+
+
+    //Constructor for cursorAdapter
+    public InventoryCursorAdapter(Context mContext, ListItemClickListener listener) {
+
         this.mContext = mContext;
+        mOnClickListener = listener;
     }
 
     @Override
@@ -49,6 +62,7 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
 
         mCursor.moveToPosition(position); // get to the right location in the cursor
 
+
         // Determine the values of the wanted data
         final int id = mCursor.getInt(idIndex);
         String name = mCursor.getString(nameIndex);
@@ -56,6 +70,8 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
         String unit = mCursor.getString(unitIndex);
         String requested = mCursor.getString(reqAmntIndex);
         String priority = mCursor.getString(priorityIndex);
+
+
 
         //Set values
         holder.itemView.setTag(id);
@@ -95,7 +111,7 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
     }
 
 
-    class EntryViewholder extends RecyclerView.ViewHolder {
+    class EntryViewholder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView nameEntryView;
         TextView amntEntryView;
         TextView unitEntryView;
@@ -109,7 +125,21 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
             reqAmntEntryView = (TextView) itemView.findViewById(R.id.requested);
             priorityEntryView = (TextView) itemView.findViewById(R.id.priority);
 
+            //set click listener on viewholder
+            itemView.setOnClickListener(this);
+
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            int adapterPosition = getAdapterPosition();
+            mCursor.moveToPosition(adapterPosition);
+            int idIndex = mCursor.getColumnIndex(InventoryContract.InventoryEntry._ID);
+            int id = mCursor.getInt(idIndex);
+            mOnClickListener.onListItemClick(id);
         }
     }
+
 
 }

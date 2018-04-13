@@ -14,12 +14,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import static com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 
 public class MainActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>, InventoryCursorAdapter.ListItemClickListener{
 
 
     // Constants for logging and referring to a unique loader
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize the adapter and attach it to the RecyclerView
-        mAdapter = new InventoryCursorAdapter(this);
+        mAdapter = new InventoryCursorAdapter(this, this );
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -186,7 +187,18 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    private Toast mToast;
+
+    @Override
+    public void onListItemClick(int id) {
+        if (mToast != null){
+            mToast.cancel();
+        }
+        String toastMessage= "Id: " + Integer.toString(id);
+        mToast =Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+        mToast.show();
 
 
+    }
 }
 
