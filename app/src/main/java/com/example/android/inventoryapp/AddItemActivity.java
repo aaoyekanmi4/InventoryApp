@@ -12,6 +12,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import static com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
@@ -50,6 +51,8 @@ public class AddItemActivity extends AppCompatActivity implements
     private EditText mRequestedEditText;
     private EditText mPriorityEditText;
 
+    //Variable for button in activity
+    private Button mSaveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,9 @@ public class AddItemActivity extends AppCompatActivity implements
         mUnitEditText = (EditText) findViewById(R.id.edit_units);
         mRequestedEditText = (EditText) findViewById(R.id.edit_req);
         mPriorityEditText = (EditText) findViewById(R.id.edit_priority);
+
+        //assign button field to mSaveButton
+        mSaveButton = (Button) findViewById(R.id.add_button);
 
 
         //show back button for up navigation
@@ -79,6 +85,8 @@ public class AddItemActivity extends AppCompatActivity implements
         }
         else {
             setTitle("Edit Item");
+            //Change text of button to "Update"
+            mSaveButton.setText("Update");
 
             //Initialize loader connecting it to this Activity if editing
             getSupportLoaderManager().initLoader(ID_ENTRY_LOADER, null, this);
@@ -160,7 +168,7 @@ public class AddItemActivity extends AppCompatActivity implements
 
 
 
-    //method to add item to database when button is clicked
+    //Method to add item to database when button is clicked
     public void addItem(View view) {
 
         //obtain string values from each edit text field
@@ -180,8 +188,24 @@ public class AddItemActivity extends AppCompatActivity implements
         inventoryValues.put(InventoryEntry.COLUMN_REQ, itemRequested);
         inventoryValues.put(InventoryEntry.COLUMN_PRIORITY, itemPriority);
 
-        //insert row into database by passing Uri and inventoryValues to content provider
-        Uri addedUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, inventoryValues);
+        //Check to see if uri passed in with intent
+        //Insert if null, update if not null
+        if (currentEntryUri == null) {
+            //Insert row into database by passing Uri and inventoryValues to content provider
+            Uri addedUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, inventoryValues);
+        } else {
+            //Update row in database if Uri is present
+            int rowsAffected = getContentResolver().update(currentEntryUri, inventoryValues,
+                    null, null);
+        }
+    }
+
+        public void deleteItem(View view){
+
+            if (currentEntryUri != null){
+            int rowDeleted = getContentResolver().delete(currentEntryUri, null, null);
+    }
+
 
     }
 

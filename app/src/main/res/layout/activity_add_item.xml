@@ -104,11 +104,21 @@
 
         <Button
             android:layout_marginTop="60dp"
-            android:layout_marginLeft="200dp"
+            android:layout_marginLeft="100dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Item"
             android:onClick="addItem"
             android:id="@+id/add_button"/>
+
+        <Button
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:onClick="deleteItem"
+            android:id="@+id/delete_button"/>
+
 </LinearLayout>
 </FrameLayout>
