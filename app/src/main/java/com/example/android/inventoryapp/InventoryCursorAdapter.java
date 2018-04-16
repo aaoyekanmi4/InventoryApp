@@ -1,8 +1,11 @@
 package com.example.android.inventoryapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +24,7 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
     private Context mContext;
 
     //Interface to handle clicks on list item
-    public interface ListItemClickListener{
+    public interface ListItemClickListener {
         //index of item that was clicked
         void onListItemClick(int id);
     }
@@ -72,7 +75,6 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
         String priority = mCursor.getString(priorityIndex);
 
 
-
         //Set values
         holder.itemView.setTag(id);
         holder.nameEntryView.setText(name);
@@ -111,12 +113,13 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
     }
 
 
-    class EntryViewholder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class EntryViewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView nameEntryView;
         TextView amntEntryView;
         TextView unitEntryView;
         TextView reqAmntEntryView;
         TextView priorityEntryView;
+
         public EntryViewholder(View itemView) {
             super(itemView);
             nameEntryView = (TextView) itemView.findViewById(R.id.name);
@@ -138,8 +141,51 @@ public class InventoryCursorAdapter extends RecyclerView.Adapter<InventoryCursor
             int idIndex = mCursor.getColumnIndex(InventoryContract.InventoryEntry._ID);
             int id = mCursor.getInt(idIndex);
             mOnClickListener.onListItemClick(id);
+
         }
     }
+            public void sendEmailMessage() {
+                int cursorPosition = 0;
+                String emailString = "";
+                mCursor.moveToPosition(cursorPosition);
+
+                while (mCursor.moveToNext()) {
+                    int nameIndex = mCursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_NAME);
+                    String name = mCursor.getString(nameIndex);
+                    emailString = emailString +"Name: " + name;
+                    int currentAmntIndex = mCursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_AMNT);
+                    String amount = mCursor.getString(currentAmntIndex);
+                    emailString = emailString + "   " + "Have: " + amount;
+                    int unitIndex = mCursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_UNIT);
+                    String unit = mCursor.getString(unitIndex);
+                    emailString += "   " + "Unit: "+ unit;
+                    int reqAmntIndex = mCursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_REQ);
+                    String requested = mCursor.getString(reqAmntIndex);
+                    emailString += "   " + "Need: " +requested;
+                    int priorityIndex = mCursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_PRIORITY);
+                    String priority = mCursor.getString(priorityIndex);
+                    emailString +="   " +"Priority: "+ priority + "\n\n";
+                    cursorPosition +=1;
+                    mCursor.moveToPosition(cursorPosition);
+
+                }
+                Log.d("message", emailString);
+
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Inventory for 4/15/18");
+                intent.putExtra(Intent.EXTRA_TEXT, emailString);
+                mContext.startActivity(intent);
 
 
-}
+
+            }
+
+
+        }
+
+
+
+
+
+

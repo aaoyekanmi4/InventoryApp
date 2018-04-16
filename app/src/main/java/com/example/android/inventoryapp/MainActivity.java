@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
 
-
         // Set the RecyclerView to its corresponding view
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -51,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements
         // Initialize the adapter and attach it to the RecyclerView
         mAdapter = new InventoryCursorAdapter(this, this );
         mRecyclerView.setAdapter(mAdapter);
-
-
+  
+        
 
         /*
          Ensure a loader is initialized and active. If the loader doesn't already exist, one is
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements
                             null,
                             null,
                             null,
-                            InventoryEntry.COLUMN_NAME);
+                            InventoryEntry.COLUMN_PRIORITY);
 
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to asynchronously load data.");
@@ -125,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements
                     return null;
                 }
             }
+
+
 
             // deliverResult sends the result of the load, a Cursor, to the registered listener
             public void deliverResult(Cursor data) {
@@ -181,6 +182,10 @@ public class MainActivity extends AppCompatActivity implements
                 Intent intent = new Intent(context, destinationActivity);
                 startActivity(intent);
                 return true;
+            case R.id.submit_email:
+                mAdapter.sendEmailMessage();
+
+
 
 
 
@@ -206,8 +211,10 @@ public class MainActivity extends AppCompatActivity implements
         //Start editActivity using the intent
         startActivity(editIntent);
 
-
-
     }
+
+
+
+
 }
 

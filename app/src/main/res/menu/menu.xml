@@ -5,7 +5,7 @@
     <item android:id="@+id/add_item"
           android:title="@string/add_item"/>
 
-    <item android:id="@+id/fake_data"
-          android:title="@string/fake_data"/>
+    <item android:id="@+id/submit_email"
+          android:title="Submit Email"/>
 
 </menu>

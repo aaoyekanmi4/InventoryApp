@@ -20,6 +20,8 @@ import static com.example.android.inventoryapp.data.InventoryContract.InventoryE
 public class AddItemActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor>{
 
+    //Logging tag
+    private static final String TAG = AddItemActivity.class.getSimpleName();
     //Define a projection for displaying values in Edit mode
     public static final String[] ENTRY_PROJECTION = {
             InventoryEntry.COLUMN_NAME,
