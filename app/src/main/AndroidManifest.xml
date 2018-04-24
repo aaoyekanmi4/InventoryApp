@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.inventoryapp">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -19,12 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddItemActivity"
+        <activity
+            android:name=".AddItemActivity"
             android:label="@string/add_item"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+
         <provider
-            android:authorities="com.example.android.inventoryapp"
-            android:name=".data.InventoryProvider" />
+            android:name=".data.InventoryProvider"
+            android:authorities="com.example.android.inventoryapp" />
+
+        <activity android:name=".GoogleSheetsExport"></activity>
     </application>
 
 </manifest>

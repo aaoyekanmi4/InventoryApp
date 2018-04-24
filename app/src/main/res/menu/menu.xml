@@ -8,4 +8,7 @@
     <item android:id="@+id/submit_email"
           android:title="Submit Email"/>
 
+    <item android:id="@+id/create_sheet"
+          android:title="Create Spreadsheet"/>
+
 </menu>

@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements
                             null,
                             null,
                             null,
-                            InventoryEntry.COLUMN_PRIORITY);
+                            InventoryEntry.COLUMN_NAME);
 
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to asynchronously load data.");
@@ -184,6 +184,16 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
             case R.id.submit_email:
                 mAdapter.sendEmailMessage();
+                return true;
+            case R.id.create_sheet:
+                Context context2 = MainActivity.this;
+                Class destinationActivity2 = GoogleSheetsExport.class;
+                Intent intent2 = new Intent(context2, destinationActivity2);
+
+                startActivity(intent2);
+                return true;
+
+
 
 
 
